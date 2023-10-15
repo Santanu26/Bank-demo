@@ -1,0 +1,5 @@
+```
+mvn compile jib:dockerBuild
+
+
+```

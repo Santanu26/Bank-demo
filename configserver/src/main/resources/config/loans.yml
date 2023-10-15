@@ -1,0 +1,11 @@
+build:
+  version: "3.0"
+
+loans:
+  message: "Welcome to CityBank loans related local APIs "
+  contactDetails:
+    name: "Neetcode - Developer"
+    email: "neetcode@citybank.com"
+  onCallSupport:
+    - (452) 456-2176
+    - (546) 764-8934
