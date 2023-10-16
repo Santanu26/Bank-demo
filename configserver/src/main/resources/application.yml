@@ -8,7 +8,9 @@ spring:
     config:
       server:
         native:
-          search-location: "classpath:/configserver"
+          search-location: "file:///home//shantonu//course//config"
+          #search-location: "classpath:/configserver"
+
 
 server:
   port: 8071
