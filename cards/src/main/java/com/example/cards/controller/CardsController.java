@@ -1,4 +1,4 @@
-package com.example.cards;
+package com.example.cards.controller;
 
 import com.example.cards.constants.CardsConstants;
 import com.example.cards.dto.CardsDto;
@@ -21,8 +21,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(
-        name = "CRUD REST APIs for Cards in EazyBank",
-        description = "CRUD REST APIs in EazyBank to CREATE, UPDATE, FETCH AND DELETE card details"
+        name = "CRUD REST APIs for Cards in CityBank",
+        description = "CRUD REST APIs in CityBank to CREATE, UPDATE, FETCH AND DELETE card details"
 )
 @RestController
 @RequestMapping(path = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -34,7 +34,7 @@ public class CardsController {
 
     @Operation(
             summary = "Create Card REST API",
-            description = "REST API to create new Card inside EazyBank"
+            description = "REST API to create new Card inside CityBank"
     )
     @ApiResponses({
             @ApiResponse(
