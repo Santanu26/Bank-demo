@@ -20,4 +20,6 @@ docker run -d -p 8081:8080 shantonubarua/accounts:v1
 
 docker compose up -d
 docker compose down
+
+POST: http://localhost:8080/actuator/refresh
 ```
