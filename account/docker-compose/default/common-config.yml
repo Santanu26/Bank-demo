@@ -1,16 +1,15 @@
 services:
-  network-deploy-services:
+  network-deploy-service:
     networks:
       - bank
   microservice-base-config:
     extends:
       service: network-deploy-service
-
     deploy:
       resources:
         limits:
           memory: 700m
-  microservice-configserver-service:
+  microservice-configserver-config:
     extends:
       service: microservice-base-config
     depends_on:
@@ -19,4 +18,5 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: default
       SPRING_CONFIG_IMPORT: "configserver:http://configserver:8071/"
+      SPRING_RABBITMQ_HOST: "rabbit"
 

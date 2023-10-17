@@ -1,19 +1,19 @@
 services:
-  rabbitmq:
+  rabbit:
     image: rabbitmq:3.12-management
     hostname: rabbitmq
     ports:
       - 5672:5672  #core management
       - 15672:15672 #activities
     healthcheck:
-      test: "rabbitmq-diagonostics check_port_connectivity"
+      test: "rabbitmq-diagnostics check_port_connectivity"
       interval: 10s
       timeout: 5s
       retries: 10
-      start_period: 10s
+      start_period: 5s
     extends:
       file: common-config.yml
-      service: network-deploy-services
+      service: network-deploy-service
 
   configserver:
     image: "shantonubarua/configserver:v2"
@@ -21,7 +21,7 @@ services:
     ports:
       - "8071:8071"
     depends_on:
-      rabbitmq:
+      rabbit:
         condition: service_healthy
     healthcheck:
       test: "curl --fail --silent localhost:8071/actuator/health/readiness | grep UP || exit 1"
@@ -31,7 +31,7 @@ services:
       start_period: 10s
     extends:
       file: common-config.yml
-      service: microservice-configserver-service
+      service: microservice-base-config
   accounts:
     image: "shantonubarua/accounts:v2"
     container_name: "accounts-ms"
@@ -41,7 +41,7 @@ services:
       SPRING_APPLICATION_NAME: "accounts"
     extends:
       file: common-config.yml
-      service: microservice-base-config
+      service: microservice-configserver-config
   loans:
     image: "shantonubarua/loans:v2"
     container_name: "loans-ms"
@@ -49,7 +49,7 @@ services:
       - "8090:8090"
     extends:
       file: common-config.yml
-      service: microservice-base-config
+      service: microservice-configserver-config
     environment:
       SPRING_APPLICATION_NAME: "loans"
   cards:
@@ -59,7 +59,7 @@ services:
       - "9000:9000"
     extends:
       file: common-config.yml
-      service: microservice-base-config
+      service: microservice-configserver-config
     environment:
       SPRING_APPLICATION_NAME: "cards"
 networks:
