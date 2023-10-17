@@ -9,6 +9,18 @@ services:
       resources:
         limits:
           memory: 700m
+  ms-db-config:
+    extends:
+      service: network-deploy-service
+    image: mysql
+    healthcheck:
+      test: [ "CMD","mysqladmin","ping","-h","localhost" ]
+      timeout: 10s
+      interval: 10s
+      retries: 10
+      start_period: 10s
+    environment:
+      MYSQL_ROOT_PASSWORD: root
   microservice-configserver-config:
     extends:
       service: microservice-base-config
