@@ -22,4 +22,14 @@ docker compose up -d
 docker compose down
 
 POST: http://localhost:8080/actuator/refresh
+
+<dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bus-amqp</artifactId>
+</dependency>
+
+Run RabbitMQ:
+docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.12-management
+
+POST: http://localhost:8080/actuator/busrefresh
 ```
