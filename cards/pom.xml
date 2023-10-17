@@ -104,7 +104,7 @@
                 <version>3.4.0</version>
                 <configuration>
                     <to>
-                        <image>shantonubarua/${project.artifactId}:v1</image>
+                        <image>shantonubarua/${project.artifactId}:v2</image>
                     </to>
                 </configuration>
             </plugin>
