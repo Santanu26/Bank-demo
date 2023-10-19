@@ -38,8 +38,6 @@ public class LoansController {
         this.loansService = loansService;
     }
 
-
-
     @Operation(
             summary = "Create Loan REST API",
             description = "REST API to create new loan inside EazyBank"

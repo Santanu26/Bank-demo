@@ -1,6 +1,6 @@
-package com.example.cards.service;
+package com.example.loans.service;
 
-import com.example.cards.dto.CustomerDto;
+import com.example.loans.dto.CustomerDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient("accounts")
 public interface AccountsFeignClient {
-    @GetMapping("/api/fetch")
+    @GetMapping(value = "/api/fetch", consumes = "application/json")
     ResponseEntity<CustomerDto> fetchAccount(@RequestParam String mobileNumber);
 }

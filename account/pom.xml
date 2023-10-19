@@ -18,7 +18,7 @@
         <spring-cloud.version>2022.0.4</spring-cloud.version>
     </properties>
     <packaging>jar</packaging>
-    <dependencies>
+    <dependencies><!---->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
