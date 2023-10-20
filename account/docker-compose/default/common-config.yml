@@ -3,17 +3,17 @@ services:
     networks:
       - bank
 
-  ms-base-config:
+  microservice-base-config:
     extends:
       service: network-deploy-service
     deploy:
       resources:
         limits:
-          memory: 700m
+          memory: 400m
 
-  ms-configserver-config:
+  microservice-configserver-config:
     extends:
-      service: ms-base-config
+      service: microservice-base-config
     depends_on:
       configserver:
         condition: service_healthy
@@ -21,9 +21,9 @@ services:
       SPRING_PROFILES_ACTIVE: default
       SPRING_CONFIG_IMPORT: configserver:http://configserver:8071/
 
-  ms-eureka-config:
+  microservice-eureka-config:
     extends:
-      service: ms-configserver-config
+      service: microservice-configserver-config
     depends_on:
       eurekaserver:
         condition: service_healthy
