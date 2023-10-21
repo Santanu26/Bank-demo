@@ -36,3 +36,9 @@ info:
     description: "Gateway Server Microservice"
     version: "1.0"
 
+logging:
+  level:
+    com:
+      bank:
+        gatewayserver: DEBUG
+
