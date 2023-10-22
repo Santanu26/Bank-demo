@@ -27,12 +27,26 @@ management:
     web:
       exposure:
         include: "*"
+  management:
+    endpoints:
+      web:
+      exposure:
+        include: "*"
+    health:
+      readiness-state:
+        enabled: true
+      liveness-state:
+        enabled: true
+    endpoint:
+      shutdown:
+        enabled: true
+      health:
+        probes:
+          enabled: true
   info:
     env:
       enabled: true
-  endpoint:
-    shutdown:
-      enabled: true
+
 endpoints:
   shutdown:
     enabled: true

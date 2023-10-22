@@ -61,7 +61,7 @@
                 <version>3.4.0</version>
                 <configuration>
                     <to>
-                        <image>shantonubarua/${project.artifactId}:v4</image>
+                        <image>shantonubarua/${project.artifactId}:v5</image>
                     </to>
                 </configuration>
             </plugin>
