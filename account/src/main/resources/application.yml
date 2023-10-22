@@ -27,15 +27,14 @@ spring:
       bindings:
         updateCommunication-in-0:
           destination: communication-sent
-          group: ${spring.application.name}
+          group: accounts
         sendCommunication-out-0:
           destination: send-communication
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
-    connection-timeout: 10s
+      kafka:
+        binder:
+          brokers:
+            - localhost:9092
+
 management:
   endpoints:
     web:

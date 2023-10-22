@@ -54,10 +54,11 @@ public class AccountServiceImpl implements AccountsService {
 
         LOGGER.info("Sending sms details with: {}", accountMessageDto);
 
-        var result = streamBridge.send("sendCommunication-out-O", accountMessageDto);
+        var result = streamBridge.send("sendCommunication-out-0", accountMessageDto);
 
         LOGGER.info("Is the communication req. successfully triggered: {}", result);
     }
+
 
     @Override
     public CustomerDto fetchAccountDetails(String mobileNumber) {
