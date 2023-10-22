@@ -1,6 +1,7 @@
 package com.example.accounts.service.impl;
 
 import com.example.accounts.constants.AccountConstants;
+import com.example.accounts.dto.AccountMessageDto;
 import com.example.accounts.dto.AccountsDto;
 import com.example.accounts.dto.CustomerDto;
 import com.example.accounts.entity.Accounts;
@@ -13,6 +14,9 @@ import com.example.accounts.repository.AccountsRepository;
 import com.example.accounts.repository.CustomerRepository;
 import com.example.accounts.service.AccountsService;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -22,9 +26,10 @@ import java.util.Random;
 @AllArgsConstructor
 public class AccountServiceImpl implements AccountsService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AccountServiceImpl.class);
+    private final StreamBridge streamBridge;
     private AccountsRepository accountsRepository;
     private CustomerRepository customerRepository;
-
 
     @Override
     public void createAccount(CustomerDto customerDto) {
@@ -37,8 +42,21 @@ public class AccountServiceImpl implements AccountsService {
         }
         customer.setCreatedBy("ADMIN");
         Customer savedCustomer = customerRepository.save(customer);
-        accountsRepository.save(createNewAccount(savedCustomer));
+        Accounts savedAccounts = accountsRepository.save(createNewAccount(savedCustomer));
+        sendCommunication(savedAccounts, savedCustomer);
 
+    }
+
+    private void sendCommunication(Accounts accounts, Customer savedCustomer) {
+
+        AccountMessageDto accountMessageDto = new AccountMessageDto(
+                accounts.getAccountNumber(), savedCustomer.getName(), savedCustomer.getEmail(), savedCustomer.getMobileNumber());
+
+        LOGGER.info("Sending sms details with: {}", accountMessageDto);
+
+        var result = streamBridge.send("sendCommunication-out-O", accountMessageDto);
+
+        LOGGER.info("Is the communication req. successfully triggered: {}", result);
     }
 
     @Override
@@ -92,6 +110,24 @@ public class AccountServiceImpl implements AccountsService {
         customerRepository.deleteById(customer.getCustomerId());
 
         return true;
+    }
+
+    /**
+     * @param accountNumber
+     * @return
+     */
+    @Override
+    public boolean updateCommunicationStatus(Long accountNumber) {
+        boolean isUpdated = false;
+        if(accountNumber !=null ){
+            Accounts accounts = accountsRepository.findById(accountNumber).orElseThrow(
+                    () -> new ResourceNotFoundException("Account", "AccountNumber", accountNumber.toString())
+            );
+            accounts.setCommunicationSw(true);
+            accountsRepository.save(accounts);
+            isUpdated = true;
+        }
+        return  isUpdated;
     }
 
     private Accounts createNewAccount(Customer customer) {

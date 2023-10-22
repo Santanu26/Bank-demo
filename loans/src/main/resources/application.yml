@@ -20,6 +20,17 @@ spring:
     show-sql: true
   config:
     import: "optional:configserver:http://localhost:8071/"
+  cloud:
+    stream:
+      bindings:
+        sendCommunication-out-O:
+          destination: send-communication
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    connection-timeout: 10s
 
 management:
   endpoints:

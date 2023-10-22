@@ -15,7 +15,19 @@ public class GatewayserverApplication {
         SpringApplication.run(GatewayserverApplication.class, args);
     }
 
-    @Bean
+
+  /*  @Bean
+    public RouteLocator bankRouteLocator(RouteLocatorBuilder routeLocatorBuilder) {
+        return routeLocatorBuilder.routes()
+                .route(p -> p.path("/bank/accounts/**")
+                        .filters(
+                                w -> w.rewritePath("/bank/accounts/(?<segment>.*)", "/$(1)")
+                                        .addResponseHeader("X-Response-Time", LocalDateTime.now().toString()))
+                        .uri("lb://ACCOUNTS"))
+                .build();
+    }*/
+
+    /*@Bean
     public RouteLocator bankRouteLocator(RouteLocatorBuilder routeLocatorBuilder) {
         return routeLocatorBuilder.routes()
                 .route(p -> p.path("/bank/accounts/**")
@@ -23,7 +35,7 @@ public class GatewayserverApplication {
                                 w -> w.rewritePath("/bank/accounts/(?<segment>.*)", "/$(segment)")
                                         .addResponseHeader("X-Response-Time", LocalDateTime.now().toString()))
                         .uri("lb://ACCOUNTS"))
-                .route(p -> p.path("/bank/loans/**")
+               *//* .route(p -> p.path("/bank/loans/**")
                         .filters(
                                 w -> w.rewritePath("/bank/loans/(?<segment>.*)", "/$(segment)")
                                         .addResponseHeader("X-Response-Time", LocalDateTime.now().toString()))
@@ -32,9 +44,9 @@ public class GatewayserverApplication {
                         .filters(
                                 w -> w.rewritePath("/bank/cards/(?<segment>.*)", "/$(segment)")
                                         .addResponseHeader("X-Response-Time", LocalDateTime.now().toString()))
-                        .uri("lb://CARDS"))
+                        .uri("lb://CARDS"))*//*
                 .build();
-    }
+    }*/
 
 
 }
